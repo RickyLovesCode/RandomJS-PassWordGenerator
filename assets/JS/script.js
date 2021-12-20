@@ -42,7 +42,13 @@ function userPrompt() {
 
     };
     return userChoices;
-    console.log(userChoices);
+
+
+}
+
+function generatePassword() {
+
+    console.log();
 
 }
 
@@ -53,9 +59,10 @@ function writePassword() {
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
-
+    return password;
 }
 
 // Add event listener to generate button
 // generateBtn.addEventListener("click", writePassword);
 generateBtn.addEventListener("click", userPrompt);
+
