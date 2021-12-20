@@ -9,6 +9,7 @@ var specialChar = ["@", "#", "$", "%", "^", "&", "*", "!"]
 var generateBtn = document.querySelector("#generate");
 function userPrompt() {
     var passwordLength = parseInt(prompt("How many characters would you like your password to be?"));
+    console.log("message");
     if (isNaN(passwordLength) === true) {
         alert("Please pick a number");
         return;
@@ -43,26 +44,55 @@ function userPrompt() {
     };
     return userChoices;
 
-
 }
 
 function generatePassword() {
+    var passwordOptions = userPrompt();
+    var possiblecombo = [];
+    var finalpassword = []
+    console.log(passwordOptions);
 
-    console.log();
+    if (passwordOptions.includeSpecial) {
+        for (var i of specialChar)
+            possiblecombo.push(i);
+    }
+    if (passwordOptions.includeUpperCase) {
+        for (var i of upperCase)
+            possiblecombo.push(i);
+    }
+    if (passwordOptions.includeLowerCase) {
+        for (var i of lowerCase)
+            possiblecombo.push(i);
+    }
+    if (passwordOptions.includeNumbers) {
+        for (var i of numbers)
+            possiblecombo.push(i);
+    }
+
+    console.log(possiblecombo);
+
+    for (var i = 0; i < passwordOptions.passwordLength; i++) {
+        var randomcharectar = Math.floor(Math.random() * possiblecombo.length);
+        finalpassword.push(possiblecombo[randomcharectar])
+        // console.log(upperCase[randomcharectar]);
+    }
+
+    console.log(finalpassword.join(""));
+
+    writePassword(finalpassword.join(""));
 
 }
 
 
 // Write password to the #password input
-function writePassword() {
-    var password = generatePassword();
+function writePassword(finalpassword) {
     var passwordText = document.querySelector("#password");
 
-    passwordText.value = password;
-    return password;
+    passwordText.innerHTML = finalpassword;
+
 }
 
 // Add event listener to generate button
 // generateBtn.addEventListener("click", writePassword);
-generateBtn.addEventListener("click", userPrompt);
+generateBtn.addEventListener("click", generatePassword);
 
